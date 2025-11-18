@@ -29,16 +29,32 @@ def muunna_varaustiedot(varaus: list) -> list:
     # Ensimmäisen alkion = varaus[0] muunnos
     muutettuvaraus.append(int(varaus[0]))
     # Ja tästä jatkuu
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
-    muutettuvaraus.append("")
+    muutettuvaraus.append(varaus[1])
+
+    muutettuvaraus.append(varaus[2])
+
+    muutettuvaraus.append(varaus[3])
+
+    varauksen_pvm = datetime.strptime(varaus[4], "%Y-%m-%d").date()
+    muutettuvaraus.append(varauksen_pvm)
+
+    varauksen_klo = datetime.strptime(varaus[5], "%H:%M").time()
+    muutettuvaraus.append(varauksen_klo)
+
+    muutettuvaraus.append(int(varaus[6]))
+
+    hinta = float(varaus[7])
+    muutettuvaraus.append(hinta)
+
+    varaus_vahvistettu = bool(varaus[8] == "True")
+    muutettuvaraus.append(varaus_vahvistettu)
+
+    muutettuvaraus.append(varaus[9])
+    
+    varaus_luotu = datetime.strptime(varaus[10], "%Y-%m-%d %H:%M:%S")
+    muutettuvaraus.append(varaus_luotu)
+    
+
     return muutettuvaraus
 
 def hae_varaukset(varaustiedosto: str) -> list:
