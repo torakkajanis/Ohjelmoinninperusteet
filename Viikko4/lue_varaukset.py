@@ -41,6 +41,7 @@ def muunna_varaustiedot(varaus: list) -> list:
     varauksen_klo = datetime.strptime(varaus[5], "%H:%M").time()
     muutettuvaraus.append(varauksen_klo)
 
+
     muutettuvaraus.append(int(varaus[6]))
 
     hinta = float(varaus[7])
@@ -82,5 +83,62 @@ def main():
         print(" | ".join(tietotyypit))
         print("------------------------------------------------------------------------")
 
+    print("")
+    print("")
+    print("")
+
+    print("1) Vahvistetut varaukset")
+    for varaus in varaukset[1:]:
+        suomalainenaika = varaus[5].strftime("%H:%M")
+        suomalainenpvm = varaus[4].strftime("%d.%m.%Y")
+        if varaus[8]:
+            print (f"- {varaus[1]},",f"{varaus[9]},",f"{suomalainenpvm}",f"klo {suomalainenaika}")
+
+    print("")
+
+    print("2) Pitkät varaukset (≥ 3 tuntia)")
+    for varaus in varaukset [1:]:
+        suomalainenaika = varaus[5].strftime("%H:%M")
+        suomalainenpvm = varaus[4].strftime("%d.%m.%Y")
+        if varaus[6] >=3:
+            print (f"- {varaus[1]},",f"{suomalainenpvm}",f"klo {suomalainenaika},",f"kesto {varaus[6]}h,", f"{varaus[9]}")
+
+    print("")
+
+    print("3) Varausten vahvistusstatus")
+    for varaus in varaukset [1:]:
+        if varaus [8]:
+            print (f"{varaus[1]} -> Vahvistettu")
+        else:
+            print (f"{varaus[1]} -> EI vahvistettu")
+
+    print("")
+
+    print("4) Yhteenveto vahvistuksista")
+    total = 0
+    for varaus in varaukset [1:]:
+        if varaus[8]:
+            total += 1
+    print (f"- Vahvistettuja varauksia: {total} kpl")
+    total = 0
+    for varaus in varaukset [1:]:
+        if not varaus[8]:
+            total += 1
+    print (f"- Ei-vahvistettuja varauksia: {total} kpl")
+
+    print("")
+    
+    print("5) Vahvistettujan varausten kokonaistulot")
+    total=0
+    for varaus in varaukset [1:]:
+        if varaus[8]:
+            total += varaus[6]*varaus[7]
+    summa_str = f"{total:.2f}".replace(".", ",")
+    print (f"Vahvistettujan varausten kokonaistulot: {summa_str} €")
+
+    print("")
+
+
 if __name__ == "__main__":
     main()
+
