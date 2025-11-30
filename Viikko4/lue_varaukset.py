@@ -71,9 +71,6 @@ def hae_varaukset(varaustiedosto: str) -> list:
     return varaukset
 
 def main():
-    # HUOM! seuraaville riveille ei tarvitse tehdä mitään!
-    # Jos muutat, kommentoi miksi muutit
-    # Kutsutaan funkioita hae_varaukset, joka palauttaa kaikki varaukset oikeilla tietotyypeillä
     varaukset = hae_varaukset("varaukset.txt")
     print(" | ".join(varaukset[0]))
     print("------------------------------------------------------------------------")
