@@ -1,2 +1,2 @@
-Vuoden 2025 sähkönkulutus sähköntuotanto ja keskilämpötila
-7396,84, 2922,38, 7,83
+Vuoden 2025 a) sähkönkulutus b) sähköntuotanto c) keskilämpötila
+a) 7396,84 b) 2922,38 c) 7,83
