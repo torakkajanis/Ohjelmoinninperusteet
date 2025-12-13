@@ -187,7 +187,7 @@ def laske_kuukausikohtainen(sahko: list) -> str:
 def laske_vuosi_2025(sahko: list) -> str: 
     """laskee koko vuoden 2025 yhteenvedon"""
     raportti = ""
-    print_str = (f"Vuoden 2025 sähkönkulutus sähköntuotanto ja keskilämpötila")
+    print_str = (f"Vuoden 2025 a) sähkönkulutus b) sähköntuotanto c) keskilämpötila")
     raportti += (f"{print_str}\n")
     print(print_str)
     summakulutus = 0
@@ -206,7 +206,7 @@ def laske_vuosi_2025(sahko: list) -> str:
     keskilampotila = lampotila/lampotilamaara
     keskilampotila = f"{keskilampotila:.2f}"
     keskilampotila = keskilampotila.replace(".", ",")
-    print_str = (f"{summakulutus}, {summatuotanto}, {keskilampotila}")
+    print_str = (f"a) {summakulutus} b) {summatuotanto} c) {keskilampotila}")
     raportti += (f"{print_str}\n")
     print(print_str)
 
