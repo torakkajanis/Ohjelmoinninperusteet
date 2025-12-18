@@ -6,6 +6,8 @@
 #
 # See LICENSE file in the project root for full license information.
 
+#Käytössä sanakirja, koska avaimet tuntuvat loogisemmilta ja lyhyemmiltä kuin olioissa. 
+
 from datetime import datetime
 
 def muunna_varaustiedot(varaus: list) -> list:
@@ -33,26 +35,42 @@ def hae_varaukset(varaustiedosto: str) -> list:
             varaukset.append(muunna_varaustiedot(varaustiedot))
     return varaukset
 
+def muunna_varaustiedot(varaus_lista: list[str]) -> dict:
+    return {
+        "id": int(varaus_lista[0]),
+        "nimi": varaus_lista[1],
+        "sahkoposti": varaus_lista[2],
+        "puhelin": varaus_lista[3],
+        "pvm": datetime.strptime(varaus_lista[4], "%Y-%m-%d").date(),
+        "klo": datetime.strptime(varaus_lista[5], "%H:%M").time(),
+        "kesto": int(varaus_lista[6]),
+        "hinta": float(varaus_lista[7]),
+        "vahvistettu": varaus_lista[8],
+        "tila": varaus_lista[9],
+        "luotu": varaus_lista[10]
+    }
+
+
 def vahvistetut_varaukset(varaukset: list):
     for varaus in varaukset[1:]:
-        if(varaus[8]):
-            print(f"- {varaus[1]}, {varaus[9]}, {varaus[4].strftime('%d.%m.%Y')} klo {varaus[5].strftime('%H.%M')}")
+        if(varaus["vahvistettu"]):
+            print(f"- {varaus["nimi"]}, {varaus["tila"]}, {varaus["pvm"].strftime('%d.%m.%Y')} klo {varaus["klo"].strftime('%H.%M')}")
 
     print()
 
 def pitkat_varaukset(varaukset: list):
     for varaus in varaukset[1:]:
-        if(varaus[6] >= 3):
-            print(f"- {varaus[1]}, {varaus[4].strftime('%d.%m.%Y')} klo {varaus[5].strftime('%H.%M')}, kesto {varaus[6]} h, {varaus[9]}")
+        if(varaus["kesto"] >= 3):
+            print(f"- {varaus["nimi"]}, {varaus["pvm"].strftime('%d.%m.%Y')} klo {varaus["klo"].strftime('%H.%M')}, kesto {varaus["kesto"]} h, {varaus["tila"]}")
 
     print()
 
 def varausten_vahvistusstatus(varaukset: list):
     for varaus in varaukset[1:]:
-        if(varaus[8]):
-            print(f"{varaus[1]} → Vahvistettu")
+        if(varaus["vahvistettu"]):
+            print(f"{varaus["nimi"]} → Vahvistettu")
         else:
-            print(f"{varaus[1]} → EI vahvistettu")
+            print(f"{varaus["nimi"]} → EI vahvistettu")
 
     print()
 
@@ -60,7 +78,7 @@ def varausten_lkm(varaukset: list):
     vahvistetutVaraukset = 0
     eiVahvistetutVaraukset = 0
     for varaus in varaukset[1:]:
-        if(varaus[8]):
+        if(varaus["vahvistettu"]):
             vahvistetutVaraukset += 1
         else:
             eiVahvistetutVaraukset += 1
@@ -72,8 +90,8 @@ def varausten_lkm(varaukset: list):
 def varausten_kokonaistulot(varaukset: list):
     varaustenTulot = 0
     for varaus in varaukset[1:]:
-        if(varaus[8]):
-            varaustenTulot += varaus[6]*varaus[7]
+        if(varaus["vahvistettu"]):
+            varaustenTulot += varaus["kesto"]*varaus["hinta"]
 
     print("Vahvistettujen varausten kokonaistulot:", f"{varaustenTulot:.2f}".replace('.', ','), "€")
     print()
